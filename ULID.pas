@@ -45,7 +45,7 @@ end;
 
 function EncodeRandom: string;
 const
-	ENCODED_RANDOM_LENGTH = 16;
+  ENCODED_RANDOM_LENGTH = 16;
 var
   I: Word;
   Rand: Integer;
