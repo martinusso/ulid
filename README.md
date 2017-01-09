@@ -1,7 +1,6 @@
-# ulid
-Universally Unique Lexicographically Sortable Identifier implementation for Delphi (Object Pascal)
+<img src="https://raw.githubusercontent.com/alizain/ulid/master/logo.png" heigth="200" width="100">
 
-![ULID](https://raw.githubusercontent.com/alizain/ulid/master/logo.png)
+Universally Unique Lexicographically Sortable Identifier implementation for Delphi (Object Pascal)
 
 A Delphi/Object Pascal port of [alizain/ulid](https://github.com/alizain/ulid).
 
