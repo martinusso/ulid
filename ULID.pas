@@ -18,7 +18,9 @@ function EncodeTime(Time: Int64): string;
 implementation
 
 uses
-  SysUtils;
+  DateUtils,
+  SysUtils,
+  Windows;
 
 const
   ENCODING: array[0..31] of string = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -60,16 +62,19 @@ end;
 
 function CreateULID: string;
 
-  function NowInMilliSeconds: Int64;
+  function UNIXTimeInMilliseconds: Int64;
   var
-    Hour, Min, Sec, MSec: Word;
+    ST: SystemTime;
+    DT: TDateTime;
   begin
-    DecodeTime(Now, Hour, Min, Sec, MSec);
-    Result := (Hour * 3600000) + (Min * 60000) + (Sec * 1000) + MSec;
+    GetSystemTime(ST);
+    DT := EncodeDate(ST.wYear, ST.wMonth, ST.wDay) +
+          SysUtils.EncodeTime(ST.wHour, ST.wMinute, ST.wSecond, ST.wMilliseconds);
+    Result := DateUtils.MilliSecondsBetween(DT, UnixDateDelta);
   end;
 
 begin
-  Result := EncodeTime(NowInMilliSeconds) + EncodeRandom;
+  Result := EncodeTime(UNIXTimeInMilliseconds) + EncodeRandom;
 end;
 
 end.
