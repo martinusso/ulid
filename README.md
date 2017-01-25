@@ -15,3 +15,6 @@ Check out [ULID's README](https://github.com/alizain/ulid/blob/master/README.md)
 ```Delphi
 CreateULID; // 01ARZ3NDEKTSV4RRFFQ69G5FAV
 ```
+## How to contribute
+
+Just make changes and submit a pull request (No Test No :beers:).
