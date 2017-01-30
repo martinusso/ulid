@@ -13,6 +13,7 @@ A Delphi/Object Pascal port of [alizain/ulid](https://github.com/alizain/ulid).
 * Uses Crockford's base32 for better efficiency and readability (5 bits per character)
 * Case insensitive
 * No special characters (URL safe)
+* [Delphi] Is faster than CreateGUID
 
 For more information, check out [ULID's README](https://github.com/alizain/ulid/blob/master/README.md).
 
