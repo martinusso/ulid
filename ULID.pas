@@ -29,20 +29,21 @@ const
                                       'Y', 'Z'); // Crockford's Base32
   ENCODING_LENGTH = Length(ENCODING);
 
-function EncodeTime(Time: Int64): string;
-const
-  ENCODED_TIME_LENGTH = 10;
-var
-  I: Word;
-  M: Integer;
-begin
-  Result := '';
-  for I := ENCODED_TIME_LENGTH downto 1 do
+function CreateULID: string;
+
+  function UNIXTimeInMilliseconds: Int64;
+  var
+    ST: SystemTime;
+    DT: TDateTime;
   begin
-    M := (Time mod ENCODING_LENGTH);
-    Result := ENCODING[M] + Result;
-    Time := Trunc((Time - M) / ENCODING_LENGTH);
+    GetSystemTime(ST);
+    DT := EncodeDate(ST.wYear, ST.wMonth, ST.wDay) +
+          SysUtils.EncodeTime(ST.wHour, ST.wMinute, ST.wSecond, ST.wMilliseconds);
+    Result := DateUtils.MilliSecondsBetween(DT, UnixDateDelta);
   end;
+
+begin
+  Result := EncodeTime(UNIXTimeInMilliseconds) + EncodeRandom;
 end;
 
 function EncodeRandom: string;
@@ -60,21 +61,20 @@ begin
   end;
 end;
 
-function CreateULID: string;
-
-  function UNIXTimeInMilliseconds: Int64;
-  var
-    ST: SystemTime;
-    DT: TDateTime;
-  begin
-    GetSystemTime(ST);
-    DT := EncodeDate(ST.wYear, ST.wMonth, ST.wDay) +
-          SysUtils.EncodeTime(ST.wHour, ST.wMinute, ST.wSecond, ST.wMilliseconds);
-    Result := DateUtils.MilliSecondsBetween(DT, UnixDateDelta);
-  end;
-
+function EncodeTime(Time: Int64): string;
+const
+  ENCODED_TIME_LENGTH = 10;
+var
+  I: Word;
+  M: Integer;
 begin
-  Result := EncodeTime(UNIXTimeInMilliseconds) + EncodeRandom;
+  Result := '';
+  for I := ENCODED_TIME_LENGTH downto 1 do
+  begin
+    M := (Time mod ENCODING_LENGTH);
+    Result := ENCODING[M] + Result;
+    Time := Trunc((Time - M) / ENCODING_LENGTH);
+  end;
 end;
 
 end.
